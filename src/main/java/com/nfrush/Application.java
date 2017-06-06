@@ -16,10 +16,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Created by nfrush on 6/6/17.
@@ -36,7 +40,7 @@ public class Application extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user").hasAnyRole("ROLE_USER")
+                .antMatchers("/user.*").hasAnyRole("ROLE_USER")
                 .anyRequest().authenticated()
                 .and()
                 .x509()
@@ -63,24 +67,48 @@ public class Application extends WebSecurityConfigurerAdapter{
         };
     }
 
+    public class Greeting {
+        private final long id;
+        private final String content;
+
+        public Greeting(long id, String content) {
+            this.id = id;
+            this.content = content;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public String getContent() {
+            return content;
+        }
+    }
+
     @Controller
     public class UserController {
+
+        private static final String template = "Identified User: %s!";
+        private final AtomicLong counter = new AtomicLong();
+
         @PreAuthorize("hasAuthority('ROLE_USER')")
-        @RequestMapping(value = "/user")
-        public String user(Model model, Principal principal) {
+        @RequestMapping(method=GET, value = "/user")
+        public @ResponseBody Greeting user(Principal principal) {
             UserDetails currentUser
                     = (UserDetails) ((Authentication) principal).getPrincipal();
-            model.addAttribute("username", currentUser.getUsername());
-            return "user";
+            return new Greeting(counter.incrementAndGet(), String.format(template, currentUser.getUsername()));
         }
     }
 
     @Controller
     public class HelloWorldController{
-        @RequestMapping(value = "/hello")
-        public String hello(Model model) {
-            model.addAttribute("message", "Hello World!");
-            return "hello";
+
+        private static final String template = "Hello, %s!";
+        private final AtomicLong counter = new AtomicLong();
+
+        @RequestMapping(method=GET, value = "/hello")
+        public @ResponseBody Greeting hello(@RequestParam(value="name", required=false, defaultValue="Stranger") String name) {
+            return new Greeting(counter.incrementAndGet(), String.format(template, name));
         }
     }
 
