@@ -3,3 +3,4 @@ com/nfrush/Application$1.class
 com/nfrush/Controllers/User/UserController.class
 com/nfrush/Domains/JSON/Greeting.class
 com/nfrush/Controllers/HelloWorld/HelloWorldController.class
+com/nfrush/Client/SSLClient.class

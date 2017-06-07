@@ -1,4 +1,5 @@
-/home/nfrush/IdeaProjects/authenicationServer/src/main/java/com/nfrush/Application.java
-/home/nfrush/IdeaProjects/authenicationServer/src/main/java/com/nfrush/Domains/JSON/Greeting.java
-/home/nfrush/IdeaProjects/authenicationServer/src/main/java/com/nfrush/Controllers/HelloWorld/HelloWorldController.java
-/home/nfrush/IdeaProjects/authenicationServer/src/main/java/com/nfrush/Controllers/User/UserController.java
+/home/nfrush/workspace/authenicationServer/src/main/java/com/nfrush/Application.java
+/home/nfrush/workspace/authenicationServer/src/main/java/com/nfrush/Controllers/User/UserController.java
+/home/nfrush/workspace/authenicationServer/src/main/java/com/nfrush/Client/SSLClient.java
+/home/nfrush/workspace/authenicationServer/src/main/java/com/nfrush/Controllers/HelloWorld/HelloWorldController.java
+/home/nfrush/workspace/authenicationServer/src/main/java/com/nfrush/Domains/JSON/Greeting.java
