@@ -1,5 +1,5 @@
-com/nfrush/Application$HelloWorldController.class
-com/nfrush/Application$UserController.class
 com/nfrush/Application.class
 com/nfrush/Application$1.class
-com/nfrush/Application$Greeting.class
+com/nfrush/Controllers/User/UserController.class
+com/nfrush/Domains/JSON/Greeting.class
+com/nfrush/Controllers/HelloWorld/HelloWorldController.class
